@@ -1,1 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promod's Chess Academy</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --primary-gold: #d4af37;
+            --text-light: #ffffff;
+            --text-muted: #b3b3b3;
+            --accent-wood: #8b5a2b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Navigation Style */
+        header {
+            background-color: #111;
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-area i {
+            color: var(--primary-gold);
+            font-size: 2rem;
+        }
+
+        .logo-area h1 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--primary-gold);
+            color: #111;
+        }
+
+        /* Container & Page Sections */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* UI Cards and Layout Elements */
+        h2 {
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent-wood);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            nav { flex-wrap: wrap; justify-content: center; }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-gold);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Quick Action Links Grid */
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--accent-wood), #5c3a1a);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid var(--primary-gold);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.2);
+        }
+
+        .action-btn.pay-btn {
+            background: linear-gradient(135deg, #1b4d3e, #0c291f);
+        }
+
+        /* Forms Layout */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: var(--primary-gold);
+        }
+
+        input, select, textarea {
+            padding: 12px;
+            background: #111;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-gold);
+            outline: none;
+        }
+
+        button[type="submit"] {
+            background-color: var(--primary-gold);
+            color: #111;
+            font-weight: bold;
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #fff;
+        }
+
+        /* Achievements & Gallery Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .placeholder-gallery {
+            background: #222;
+            border: 2px dashed #555;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: var(--text-muted);
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Calendar & Event List styles */
+        .event-item {
+            display: flex;
+            background: #252525;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .event-date {
+            background: var(--accent-wood);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 100px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .event-date span {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+        }
+
+        .event-details {
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Hall of Fame badge elements */
+        .hof-card {
+            background: linear-gradient(145deg, #2d2d2d, #1e1e1e);
+            border: 1px solid var(--primary-gold);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hof-badge {
+            background: var(--primary-gold);
+            color: black;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* Fixed WhatsApp Assistant Widget */
+        .whatsapp-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 10000;
+            transition: 0.3s;
+        }
+
+        .whatsapp-widget:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <i class="fas fa-chess-knight"></i>
+            <div>
+                <h1>Promod's Chess Academy</h1>
+                <p style="font-size: 0.75rem; color: var(--primary-gold);">Mastering the Sixty-Four Squares</p>
+            </div>
+        </div>
+        <nav>
+            <a onclick="switchPage('home')" id="nav-home" class="active">Home</a>
+            <a onclick="switchPage('achievements')" id="nav-achievements">Achievements</a>
+            <a onclick="switchPage('events')" id="nav-events">Calendar & Events</a>
+            <a onclick="switchPage('hof')" id="nav-hof">Hall of Fame</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- ================= PAGE 1: HOME ================= -->
+        <section id="home" class="page-section active">
+            <div class="grid-2">
+                <div>
+                    <h2>Welcome to the Academy</h2>
+                    <p style="margin-bottom: 15px;">Promod's Chess Academy provides premier strategic chess coaching tailored for young minds and advanced tournament competitors alike. Our systematic modules foster focus, critical analysis, and calculation frameworks.</p>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-map-marker-alt" style="color: var(--primary-gold);"></i> Our Address & Timings</h3>
+                        <p style="margin-top: 10px;"><strong>Location:</strong> H, No- 4-601/20A/2, 1st Cross Rd, opposite Sri Krishna School, MB Nagar, Mahatma Basaveswar colony, Kalaburagi, Karnataka 585105</p>
+                        <p style="margin-top: 5px;"><strong>Class Timings:</strong> Monday to Saturday (4:00 PM - 8:00 PM) | Sunday Special Batches (10:00 AM - 1:00 PM)</p>
+                    </div>
+
+                    <div class="card">
 
