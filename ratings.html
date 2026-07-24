@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ratings — Promod's Chess Academy</title>
+<meta name="description" content="Gulbarga District local chess ratings, maintained by Promod's Chess Academy and the Gulbarga District Chess Association.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      Promod's Chess Academy
+      <span class="brand-mark">GDCA</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Toggle menu">Menu</button>
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="ratings.html" aria-current="page">Ratings</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Ratings</span>
+      <h1>Gulbarga District local ratings.</h1>
+      <p>Local ratings are maintained separately from AICF and FIDE ratings, and are updated after each recognized district tournament using Swiss-Manager exports.</p>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Top players</span>
+        <h2>Current district standings.</h2>
+        <p>Sample rows only — replace with your published list, or link out to the full rating system below.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Name</th>
+              <th>Rating</th>
+              <th>Games</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Player Name</td>
+              <td>—</td>
+              <td>—</td>
+              <td>Open</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Player Name</td>
+              <td>—</td>
+              <td>—</td>
+              <td>Open</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Player Name</td>
+              <td>—</td>
+              <td>—</td>
+              <td>U-15</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Full rating system</span>
+        <h2>Looking for the complete, searchable list?</h2>
+        <p>The full Gulbarga District rating tool covers all registered players, tournament history, and rating-change review before publishing.</p>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="card">
+          <span class="move-tag">Tool</span>
+          <h3>District rating system</h3>
+          <p>Link this card to your hosted <code>Gulbarga_Rating_System.html</code> tool once it's published, so visitors can search any player's current rating.</p>
+        </div>
+        <div class="card">
+          <span class="move-tag">Verify</span>
+          <h3>Membership check</h3>
+          <p>Link this card to your AICF / KSCA roster verification tool for confirming a player's active membership status.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Promod's Chess Academy</h4>
+        <p style="max-width: 40ch; color: rgba(242,234,217,0.68);">Coaching for every stage of a chess player's development, based in Kalaburagi, Karnataka.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="ratings.html">Ratings</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Affiliation</h4>
+        <ul>
+          <li>Gulbarga District Chess Association</li>
+          <li>Karnataka State Chess Association</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Promod's Chess Academy</span>
+      <span>Kalaburagi, Karnataka, India</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

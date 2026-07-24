@@ -1,339 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promod's Chess Academy</title>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <style>
-        :root {
-            --bg-color: #1a1a1a;
-            --card-bg: #2d2d2d;
-            --primary-gold: #d4af37;
-            --text-light: #ffffff;
-            --text-muted: #b3b3b3;
-            --accent-wood: #8b5a2b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* Navigation Style */
-        header {
-            background-color: #111;
-            padding: 15px 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--primary-gold);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-area i {
-            color: var(--primary-gold);
-            font-size: 2rem;
-        }
-
-        .logo-area h1 {
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-        }
-
-        nav {
-            display: flex;
-            gap: 20px;
-        }
-
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: 0.3s ease;
-            cursor: pointer;
-        }
-
-        nav a:hover, nav a.active {
-            background-color: var(--primary-gold);
-            color: #111;
-        }
-
-        /* Container & Page Sections */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .page-section {
-            display: none;
-        }
-
-        .page-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* UI Cards and Layout Elements */
-        h2 {
-            color: var(--primary-gold);
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--accent-wood);
-            padding-bottom: 8px;
-            display: inline-block;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
-            header { flex-direction: column; gap: 15px; text-align: center; }
-            nav { flex-wrap: wrap; justify-content: center; }
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-gold);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        /* Quick Action Links Grid */
-        .quick-links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--accent-wood), #5c3a1a);
-            color: white;
-            padding: 15px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            text-align: center;
-            transition: 0.3s;
-            border: 1px solid var(--primary-gold);
-        }
-
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(212,175,55,0.2);
-        }
-
-        .action-btn.pay-btn {
-            background: linear-gradient(135deg, #1b4d3e, #0c291f);
-        }
-
-        /* Forms Layout */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        label {
-            font-weight: bold;
-            color: var(--primary-gold);
-        }
-
-        input, select, textarea {
-            padding: 12px;
-            background: #111;
-            border: 1px solid #444;
-            color: white;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--primary-gold);
-            outline: none;
-        }
-
-        button[type="submit"] {
-            background-color: var(--primary-gold);
-            color: #111;
-            font-weight: bold;
-            padding: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1rem;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #fff;
-        }
-
-        /* Achievements & Gallery Grid */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .placeholder-gallery {
-            background: #222;
-            border: 2px dashed #555;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            color: var(--text-muted);
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* Calendar & Event List styles */
-        .event-item {
-            display: flex;
-            background: #252525;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .event-date {
-            background: var(--accent-wood);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 100px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .event-date span {
-            font-size: 1.5rem;
-            color: var(--primary-gold);
-        }
-
-        .event-details {
-            padding: 15px 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        /* Hall of Fame badge elements */
-        .hof-card {
-            background: linear-gradient(145deg, #2d2d2d, #1e1e1e);
-            border: 1px solid var(--primary-gold);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            position: relative;
-        }
-
-        .hof-badge {
-            background: var(--primary-gold);
-            color: black;
-            padding: 4px 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        /* Fixed WhatsApp Assistant Widget */
-        .whatsapp-widget {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25d366;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            z-index: 10000;
-            transition: 0.3s;
-        }
-
-        .whatsapp-widget:hover {
-            transform: scale(1.05);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promod's Chess Academy — Kalaburagi, Karnataka</title>
+<meta name="description" content="Promod's Chess Academy in Kalaburagi, Karnataka offers structured coaching for beginners to tournament players, affiliated with the Gulbarga District Chess Association.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-    <header>
-        <div class="logo-area">
-            <i class="fas fa-chess-knight"></i>
-            <div>
-                <h1>Promod's Chess Academy</h1>
-                <p style="font-size: 0.75rem; color: var(--primary-gold);">Mastering the Sixty-Four Squares</p>
-            </div>
-        </div>
-        <nav>
-            <a onclick="switchPage('home')" id="nav-home" class="active">Home</a>
-            <a onclick="switchPage('achievements')" id="nav-achievements">Achievements</a>
-            <a onclick="switchPage('events')" id="nav-events">Calendar & Events</a>
-            <a onclick="switchPage('hof')" id="nav-hof">Hall of Fame</a>
-        </nav>
-    </header>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      Promod's Chess Academy
+      <span class="brand-mark">GDCA</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Toggle menu">Menu</button>
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="ratings.html">Ratings</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
     <div class="container">
+      <div class="hero-copy">
+        <span class="eyebrow">Kalaburagi · Karnataka</span>
+        <h1>Every strong player starts with a <em>sound opening</em>.</h1>
+        <p class="lede">Promod's Chess Academy trains players from their first move to their first rated tournament, with coaching built around the same discipline used at district and state level competition.</p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="#programs">View programs</a>
+          <a class="btn btn--ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
 
-        <!-- ================= PAGE 1: HOME ================= -->
-        <section id="home" class="page-section active">
-            <div class="grid-2">
-                <div>
-                    <h2>Welcome to the Academy</h2>
-                    <p style="margin-bottom: 15px;">Promod's Chess Academy provides premier strategic chess coaching tailored for young minds and advanced tournament competitors alike. Our systematic modules foster focus, critical analysis, and calculation frameworks.</p>
-                    
-                    <div class="card">
-                        <h3><i class="fas fa-map-marker-alt" style="color: var(--primary-gold);"></i> Our Address & Timings</h3>
-                        <p style="margin-top: 10px;"><strong>Location:</strong> H, No- 4-601/20A/2, 1st Cross Rd, opposite Sri Krishna School, MB Nagar, Mahatma Basaveswar colony, Kalaburagi, Karnataka 585105</p>
-                        <p style="margin-top: 5px;"><strong>Class Timings:</strong> Monday to Saturday (4:00 PM - 8:00 PM) | Sunday Special Batches (10:00 AM - 1:00 PM)</p>
-                    </div>
+      <div class="knight-tour-wrap" role="img" aria-label="Decorative diagram of a knight's tour across a chessboard">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- 5x5 board -->
+          <g>
+            <!-- row 0 -->
+            <rect class="kt-square" x="0" y="0" width="80" height="80"/>
+            <rect class="kt-square dark" x="80" y="0" width="80" height="80"/>
+            <rect class="kt-square" x="160" y="0" width="80" height="80"/>
+            <rect class="kt-square dark" x="240" y="0" width="80" height="80"/>
+            <rect class="kt-square" x="320" y="0" width="80" height="80"/>
+            <!-- row 1 -->
+            <rect class="kt-square dark" x="0" y="80" width="80" height="80"/>
+            <rect class="kt-square" x="80" y="80" width="80" height="80"/>
+            <rect class="kt-square dark" x="160" y="80" width="80" height="80"/>
+            <rect class="kt-square" x="240" y="80" width="80" height="80"/>
+            <rect class="kt-square dark" x="320" y="80" width="80" height="80"/>
+            <!-- row 2 -->
+            <rect class="kt-square" x="0" y="160" width="80" height="80"/>
+            <rect class="kt-square dark" x="80" y="160" width="80" height="80"/>
+            <rect class="kt-square" x="160" y="160" width="80" height="80"/>
+            <rect class="kt-square dark" x="240" y="160" width="80" height="80"/>
+            <rect class="kt-square" x="320" y="160" width="80" height="80"/>
+            <!-- row 3 -->
+            <rect class="kt-square dark" x="0" y="240" width="80" height="80"/>
+            <rect class="kt-square" x="80" y="240" width="80" height="80"/>
+            <rect class="kt-square dark" x="160" y="240" width="80" height="80"/>
+            <rect class="kt-square" x="240" y="240" width="80" height="80"/>
+            <rect class="kt-square dark" x="320" y="240" width="80" height="80"/>
+            <!-- row 4 -->
+            <rect class="kt-square" x="0" y="320" width="80" height="80"/>
+            <rect class="kt-square dark" x="80" y="320" width="80" height="80"/>
+            <rect class="kt-square" x="160" y="320" width="80" height="80"/>
+            <rect class="kt-square dark" x="240" y="320" width="80" height="80"/>
+            <rect class="kt-square" x="320" y="320" width="80" height="80"/>
+          </g>
 
-                    <div class="card">
+          <path class="kt-path" d="M40,40 L120,200 L200,40 L360,120 L200,200 L40,120 L120,280 L280,360 L360,200"/>
 
+          <circle class="kt-node start" cx="40" cy="40" r="9"/>
+          <circle class="kt-node" cx="120" cy="200" r="7"/>
+          <circle class="kt-node" cx="200" cy="40" r="7"/>
+          <circle class="kt-node" cx="360" cy="120" r="7"/>
+          <circle class="kt-node" cx="200" cy="200" r="7"/>
+          <circle class="kt-node" cx="40" cy="120" r="7"/>
+          <circle class="kt-node" cx="120" cy="280" r="7"/>
+          <circle class="kt-node" cx="280" cy="360" r="7"/>
+          <circle class="kt-node" cx="360" cy="200" r="7"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / COACH -->
+  <section class="section section--paper">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">About the academy</span>
+        <h2>Coached by someone who also runs the tournaments.</h2>
+        <p>Promod's Chess Academy is led by Promodraj Moree, who coaches players locally and also handles ratings and pairings for the Gulbarga District Chess Association — meaning the training here is shaped by first-hand knowledge of what district and state arbiters actually look for.</p>
+      </div>
+
+      <div class="profile">
+        <div class="profile-photo">Coach photo<br>placeholder</div>
+        <div>
+          <h3>Promodraj Moree</h3>
+          <p style="color: var(--color-maroon); font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 16px;">Head Coach &amp; Tournament Administrator, Gulbarga District Chess Association</p>
+          <p>Promodraj works on both sides of the board: as a coach building players up from their first game, and as an administrator managing district ratings and tournament logistics. That dual perspective shapes how the academy trains — with real emphasis on tournament readiness, not just theory.</p>
+          <p>Replace this section with your own biography, certifications, and playing history.</p>
+        </div>
+      </div>
+
+      <div class="stats" style="margin-top: 56px;">
+        <div class="stat">
+          <span class="stat-num">—</span>
+          <span class="stat-label">Active students</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">—</span>
+          <span class="stat-label">Years coaching</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">—</span>
+          <span class="stat-label">Tournaments run</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">—</span>
+          <span class="stat-label">Rated players</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="section" id="programs">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Programs</span>
+        <h2>A path from first moves to first rating.</h2>
+        <p>Each program is built around a stage of a player's development, from learning how the pieces move to preparing for a FIDE or AICF-rated event.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <div class="card">
+          <span class="move-tag">e2–e4</span>
+          <h3>Foundations</h3>
+          <p>Rules, tactics, and board vision for complete beginners, taught in small groups with plenty of supervised play.</p>
+        </div>
+        <div class="card">
+          <span class="move-tag">Nf3–e5</span>
+          <h3>Improvers</h3>
+          <p>Opening principles, endgame technique, and calculation drills for players ready to compete in local tournaments.</p>
+        </div>
+        <div class="card">
+          <span class="move-tag">O-O</span>
+          <h3>Tournament prep</h3>
+          <p>Repertoire building, time management, and mock rated games for students entering AICF and KSCA-rated events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY / CTA -->
+  <section class="section section--paper">
+    <div class="container">
+      <div class="cta-band">
+        <div>
+          <h2>Ready to start?</h2>
+          <p>Get in touch to discuss batch timings, one-on-one coaching, or enrolling for the next tournament cycle.</p>
+        </div>
+        <a class="btn btn--primary" href="#contact">Contact the academy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Get in touch</span>
+        <h2>Visit, call, or write in.</h2>
+      </div>
+      <div class="grid grid--3">
+        <div class="card">
+          <span class="move-tag">Location</span>
+          <h3>Kalaburagi, Karnataka</h3>
+          <p>Add your academy's street address here.</p>
+        </div>
+        <div class="card">
+          <span class="move-tag">Phone</span>
+          <h3>+91 00000 00000</h3>
+          <p>Replace with your contact number and preferred calling hours.</p>
+        </div>
+        <div class="card">
+          <span class="move-tag">Email</span>
+          <h3>hello@example.com</h3>
+          <p>Replace with your academy email address.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Promod's Chess Academy</h4>
+        <p style="max-width: 40ch; color: rgba(242,234,217,0.68);">Coaching for every stage of a chess player's development, based in Kalaburagi, Karnataka.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="ratings.html">Ratings</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Affiliation</h4>
+        <ul>
+          <li>Gulbarga District Chess Association</li>
+          <li>Karnataka State Chess Association</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Promod's Chess Academy</span>
+      <span>Kalaburagi, Karnataka, India</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
